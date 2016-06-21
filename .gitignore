@@ -1,0 +1,14 @@
+# Eclipse settings #
+.settings/
+
+# Classpath info #
+.classpath
+
+# project file #
+.project
+
+# Ignore output directories #
+#############################
+target/
+build/
+bin/
