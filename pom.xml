@@ -4,6 +4,9 @@
   <artifactId>book2-app</artifactId>
   <version>1.0</version>
   <name>book2-app</name>
+  <properties>
+  	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
   <dependencies>
   	<dependency>
   		<groupId>com.sparkjava</groupId>
@@ -77,6 +80,15 @@
     <groupId>org.eluder.coveralls</groupId>
     <artifactId>coveralls-maven-plugin</artifactId>
     <version>4.2.0</version>
+    <executions>
+            <execution>
+            <id>post-unit-test</id>
+            <phase>test</phase>
+            <goals>
+                <goal>report</goal>
+            </goals>
+        </execution>
+    </executions>
     <configuration>
     </configuration>
 </plugin>
