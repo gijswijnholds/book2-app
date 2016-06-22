@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -jar target/book2-app-1.0-jar-with-dependencies.jar --port $PORT 
+web: java $JAVA_OPTS -cp target/classes:target/dependency/* app.Application
