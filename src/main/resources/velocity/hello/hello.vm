@@ -1,18 +1,11 @@
 #parse("/velocity/layout.vm")
 #@mainLayout()
 
-<body>
-	<script src="/prism/prism.js"></script>
-	
-	<div id="content">
-	Text: ${intro}
-	</div>
-	
-	<div>
-	<pre><code class="language-java">
-	${code}
-	</code></pre>
-	</div>
+Text: ${intro}
 
-</body>
-</html>
+<div>
+ <pre><code class="language-java">
+ ${code}
+ </code></pre>
+</div>
+#end
