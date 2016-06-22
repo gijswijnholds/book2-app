@@ -1,0 +1,20 @@
+<html>
+<head>
+<link href="/prism/prism.css" rel="stylesheet" />
+</head>
+
+<body>
+	<script src="/prism/prism.js"></script>
+	
+	<div id="content">
+	Text: ${intro}
+	</div>
+	
+	<div>
+	<pre><code class="language-java">
+	${code}
+	</code></pre>
+	</div>
+
+</body>
+</html>

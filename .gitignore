@@ -7,6 +7,9 @@
 # project file #
 .project
 
+# wtpmodule #
+.wtpmodules
+
 # Ignore output directories #
 #############################
 target/

@@ -3,7 +3,15 @@ package app;
 import static spark.Spark.get;
 import static spark.Spark.port;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import app.snippet.SnippetDao;
+import spark.ModelAndView;
+import spark.Spark;
+import spark.template.velocity.VelocityTemplateEngine;
+
+
 
 public class Application {
 
@@ -12,10 +20,16 @@ public class Application {
     public static void main(String[] args) {
         snippetDao = new SnippetDao();
 
-        port(getHerokuAssignedPort());
-        get("/hello", (req, res) -> "Hello Sylvan and Zeeger, did you like this snippet: "
-            + snippetDao.getAllSnippets().iterator().next().getCode());
+        Spark.staticFileLocation("/public");
 
+        port(getHerokuAssignedPort());
+        get("/hello", (req, res) -> { 
+            Map<String, Object> model = new HashMap<>();
+            model.put("intro", "Hello Sylvan and Zeeger, did you like this snippet: ");
+            model.put("code", snippetDao.getAllSnippets().iterator().next().getCode());
+
+            return new ModelAndView(model, "/velocity/hello/hello.vm");
+        }, new VelocityTemplateEngine());
     }
 
     static int getHerokuAssignedPort() {
