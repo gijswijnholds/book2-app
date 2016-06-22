@@ -12,7 +12,6 @@ import spark.Spark;
 import spark.template.velocity.VelocityTemplateEngine;
 
 
-
 public class Application {
 
     public static SnippetDao snippetDao;

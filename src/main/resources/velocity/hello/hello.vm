@@ -1,7 +1,5 @@
-<html>
-<head>
-<link href="/prism/prism.css" rel="stylesheet" />
-</head>
+#parse("/velocity/layout.vm")
+#@mainLayout()
 
 <body>
 	<script src="/prism/prism.js"></script>

@@ -1,0 +1,26 @@
+#macro(mainLayout)
+<html>
+<head>
+
+<link href="/prism/prism.css" rel="stylesheet" />
+<link href="/bootstrap/bootstrap.min.css" rel="stylesheet" />
+<link href="/bootstrap/bootstrap-theme.min.css" rel="stylesheet" />
+</head>
+
+<body>
+
+## javascript
+<script src="/bootstrap/bootstrap.min.js"></script>
+<script src="/prism/prism.js"></script>
+
+<main>
+
+<div id="content">
+$bodyContent
+</div>
+</main>
+
+</body>
+
+</html>
+#end
