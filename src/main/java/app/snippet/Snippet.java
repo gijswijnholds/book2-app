@@ -22,4 +22,8 @@ public class Snippet {
     public String getCode() {
         return code;
     }
+
+    public String easterEgg() {
+        return "EASTER EGG!";
+    }
 }
