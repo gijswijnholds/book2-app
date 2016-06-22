@@ -67,6 +67,14 @@
             	<web>java -jar ./target/book2-app-1.0-jar-with-dependencies.jar</web>
         </processTypes>
     </configuration>
+	</plugin>
+	<plugin>
+    <groupId>org.eluder.coveralls</groupId>
+    <artifactId>coveralls-maven-plugin</artifactId>
+    <version>4.2.0</version>
+    <configuration>
+        <repoToken>yourcoverallsprojectrepositorytoken</repoToken>
+    </configuration>
 </plugin>
     </plugins>
 </build>
