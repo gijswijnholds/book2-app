@@ -57,6 +57,7 @@
                 </archive>
             </configuration>
         </plugin>
+        <!--
         <plugin>
     		<groupId>com.heroku.sdk</groupId>
     		<artifactId>heroku-maven-plugin</artifactId>
@@ -65,12 +66,11 @@
         		<jdkVersion>1.8</jdkVersion>        		
         		<appName>book2-app</appName> 
         		<processTypes>
-            	<!-- Tell Heroku how to launch your application -->
-            	<!-- You might have to remove the ./ in front   -->
             	<web>java -jar ./target/book2-app-1.0-jar-with-dependencies.jar</web>
         </processTypes>
     </configuration>
 	</plugin>
+	-->
 	<!--
 	<plugin>
 		<groupId>org.jacoco</groupId>
