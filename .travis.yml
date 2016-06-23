@@ -1,11 +1,8 @@
 language: java
 jdk:
 - oraclejdk8
-before_install:
-- mvn clean install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-before_deploy:
-- mvn -B -DskipTests clean dependency:list install
 deploy:
+  skip_cleanup: true
   provider: heroku
   api_key:
     secure: zF2NLF6lV5rIgMKwhRhyKkRrAjRQwL+WcNntmY3FnliaUKnEBg86kl0METMyEkhqNOGGr9g17a0aIAbEU20vpWYjN/navq+C+OiY/P9C5l3vDHpl0JFEtT/Fggf5vLPl5aCdBJb8EL9yzpooy6CfJ411OaNfMmIR6PYvWzOOp/z/Xqc/YVEfkaq02RJZinZ7BXPrTBttUK1B0kD2fI348mNYn35q4XBLwQ8zmjOipt2bfwN8V3dB9kj9NDZrzT9En1VwmvHspp3Fzsa9BVaIxGSvRBw9lUN30gbVgPwJbISVBEIv8DHi8TDReqyyAg1feojB5x9HNJc0YYduEH0f21tn61M/Wn5H0UdKwbkwzVq8bPs7slqI3BUhSaObv0vDvsjNgSC0uZLOzJY9KS561VGY1HvoS5kMCw9zB0GDSyQtcwQSTThpn5W8uzXiyChPMS43e5Gg/fhl5din1i1I51FNyI0pYA+024GOIhAaGj70WdSQ5LyUtyH4Iemp5a94gQzq2EBljrTsv/dkRII1s2ZNXXkY9MuiyDK8HGtNYeTVJ6hW1dIC1NUsbb0qCqSOTt4cIo6nEx5wlnWABkN+i1zdeRDEBwdHWh5KBzownbVzT8qHMNA0Zf0pSSDlnUKZEQCD2Orc7GbCyeD+uEBWdqeq9dw0pEtMuo475aQBqj0=
