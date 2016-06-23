@@ -1,1 +1,1 @@
-web: java -cp target/classes:target/dependency/* com.gijswijnholds.book2app.app.Application
+web: java -cp target/classes:target/dependency/* app.Application
