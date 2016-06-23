@@ -1,6 +1,8 @@
 language: java
 jdk:
 - oraclejdk8
+before_install:
+- mvn clean
 deploy:
   skip_cleanup: true
   provider: heroku
