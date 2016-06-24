@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import app.snippet.SnippetDao;
+import app.snippet.SnippetFetcher;
 import spark.ModelAndView;
 import spark.Spark;
 import spark.template.velocity.VelocityTemplateEngine;
@@ -17,17 +18,18 @@ public class Application {
     public static SnippetDao snippetDao;
 
     public static void main(String[] args) {
-        snippetDao = new SnippetDao();
+        SnippetDao snippetDao = new SnippetDao();
+        SnippetFetcher fetcher = new SnippetFetcher();
 
         Spark.staticFileLocation("/public");
 
         port(getHerokuAssignedPort());
-        get("/hello", (req, res) -> { 
+        get("/hello", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             model.put("intro", "Hello Sylvan and Zeeger, did you like this snippet: ");
-            model.put("code", snippetDao.getAllSnippets().iterator().next().getCode());
+            model.put("code", fetcher.fetchSnippet(2,"Level")); // snippetDao.getAllSnippets().iterator().next().getCode());
 
-            return new ModelAndView(model, "/velocity/hello/hello.vm");
+            return new ModelAndView(model, "/velocity/hello/test.vm");
         }, new VelocityTemplateEngine());
     }
 

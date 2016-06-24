@@ -1,0 +1,22 @@
+#parse("/velocity/layout.vm")
+#@mainLayout()
+
+Text: ${intro}
+
+<div class="row">
+
+<div class="col-md-4">
+ <pre><code class="language-java">
+ ${code}
+ </code></pre>
+</div>
+
+<div class="col-md-4">
+ <pre><code class="language-java">
+ ${code}
+ </code></pre>
+</div>
+
+
+</div>
+#end
