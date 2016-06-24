@@ -23,6 +23,11 @@
         <artifactId>guava</artifactId>
         <version>19.0</version>
     </dependency>
+    <dependency>
+      <groupId>org.kohsuke</groupId>
+      <artifactId>github-api</artifactId>
+      <version>1.76</version>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
