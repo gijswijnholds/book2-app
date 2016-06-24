@@ -17,11 +17,6 @@ Text: ${intro}
  </code></pre>
 </div>
 
-<div class="col-md-4">
- <pre><code class="language-java">
- ${code}
- </code></pre>
-</div>
 
 </div>
 #end
