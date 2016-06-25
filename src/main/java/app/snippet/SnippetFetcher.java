@@ -13,7 +13,7 @@ public class SnippetFetcher {
     public static final String USER_NAME = "oreillymedia";
     public static final String REPOSITORY_NAME = "building_maintainable_software";
 
-    public String fetchSnippet(int chapter, String name) throws IOException {
+    public String getSnippet(int chapter, String name) throws IOException {
         GHContent fileContents = GitHub.connectAnonymously().getUser(USER_NAME).getRepository(REPOSITORY_NAME).getFileContent("src/java/eu/sig/training/ch0" + chapter + "/" + name + ".java");
         String result = CharStreams.toString(new InputStreamReader(fileContents.read(), Charsets.UTF_8));
         return result;
