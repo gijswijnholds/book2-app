@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,64 +25,56 @@ public class SnippetUrlDao {
     public static final String JAVA_LANG = "Java";
     public static final String CSHARP_LANG = "C#";
 
-    private static ImmutableList<SnippetReference> snippetRefs; // = ImmutableList.copyOf(buildSnippetRefs());
+    private static ImmutableList<SnippetReference> snippetRefs;
     private static ImmutableList<String> urls;
 
     public List<GHContent> snippetUrls;
 
     public SnippetUrlDao() throws IOException {
-        urls = ImmutableList.copyOf(buildUrls());
-        // snippetRefs = ImmutableList.copyOf(buildSnippetRefs());
+        snippetRefs = ImmutableList.copyOf(buildSnippetRefs());
+    }
+
+    private List<SnippetReference> buildSnippetRefs() throws IOException {
+        List<String> urls = buildUrls();
+
+        List<String> javaUrls = filterByChapterExistence(filterByLang(urls, ".java"));
+        List<String> csharpUrls = filterByChapterExistence(filterByLang(urls, ".cs"));
+
+        List<SnippetReference> javaRefs = javaUrls.stream().map(u -> makeSnippetRef(JAVA_LANG, u))
+            .collect(Collectors.toList());
+        List<SnippetReference> csharpRefs = csharpUrls.stream().map(u -> makeSnippetRef(CSHARP_LANG, u))
+            .collect(Collectors.toList());
+
+        List<SnippetReference> allRefs = new ArrayList<SnippetReference>();
+        allRefs.addAll(javaRefs);
+        allRefs.addAll(csharpRefs);
+        return allRefs;
+    }
+
+    private List<String> filterByChapterExistence(List<String> list) {
+        return list.stream().filter(u -> containsChapterString(u)).collect(Collectors.toList());
+    }
+
+    private Boolean containsChapterString(String u) {
+        List<String> checkList = Arrays.stream(u.split("/")).filter(p -> p.startsWith("ch"))
+            .collect(Collectors.toList());
+        return !checkList.isEmpty();
+    }
+
+    private List<String> filterByLang(List<String> list, String langSuffix) {
+        return list.stream().filter(u -> u.endsWith(langSuffix)).collect(Collectors.toList());
     }
 
     private List<String> buildUrls() throws IOException {
-        GHRepository repo = GitHub.connectUsingOAuth("3bd471601beb629a87d3f81f2445deb1cd59deb6")
-            .getUser(USER_NAME).getRepository(REPOSITORY_NAME);
+        GHRepository repo = connectToGHRepository();
         List<String> paths = repo.getTreeRecursive("master", 1).getTree().stream()
             .filter(e -> e.getType().equals("blob")).map(e -> e.getPath()).collect(Collectors.toList());
         return paths;
     }
 
-    private List<SnippetReference> buildSnippetRefs() throws IOException {
-        List<SnippetReference> refs = new ArrayList<SnippetReference>();
-        refs.addAll(buildSnippetRefsForLanguage(JAVA_LANG, JAVA_BASE_DIR));
-        refs.addAll(buildSnippetRefsForLanguage(CSHARP_LANG, CSHARP_BASE_DIR));
-        return refs;
-    }
-
-    private List<SnippetReference> buildSnippetRefsForLanguage(String language, String baseDir) throws IOException {
-        GHRepository repo = GitHub.connectAnonymously().getUser(USER_NAME).getRepository(REPOSITORY_NAME);
-
-        List<GHContent> dirContents = repo.getDirectoryContent(baseDir);
-        List<SnippetReference> refs = new ArrayList<SnippetReference>();
-        
-        for (GHContent content : dirContents) {
-            String dirName = content.getName();
-            int chapterNumber = getChapterNumber(dirName);
-            List<SnippetReference> chapterSnippets = buildSnippetRefsForChapter(repo, language, chapterNumber,
-                baseDir + "/" + dirName);
-            refs.addAll(chapterSnippets);
-        }
-        return refs;
-    }
-
-
-    private List<SnippetReference> buildSnippetRefsForChapter(GHRepository repo, String language, int chapterNumber,
-        String baseDir) throws IOException {
-        List<GHContent> dirContents = repo.getDirectoryContent(baseDir);
-        List<SnippetReference> refs = new ArrayList<SnippetReference>();
-
-        for (GHContent content : dirContents) {
-            if (content.isFile()) {
-                refs.add(new SnippetReference(language, chapterNumber, baseDir + "/" + content.getName()));
-            }
-            if (content.isDirectory()) {
-                refs.addAll(
-                    buildSnippetRefsForChapter(repo, language, chapterNumber, baseDir + "/" + content.getName()));
-            }
-        }
-
-        return refs;
+    private GHRepository connectToGHRepository() throws IOException {
+        return GitHub.connectUsingOAuth("c215cf4f3b16c270764f86ce4da9954285004a17").getUser(USER_NAME)
+            .getRepository(REPOSITORY_NAME);
     }
 
     private int getChapterNumber(String ch) {
@@ -90,12 +83,18 @@ public class SnippetUrlDao {
         return result;
     }
 
-    public List<GHContent> initializeSnippetUrls() throws IOException {
-      GHRepository repo = GitHub.connectAnonymously().getUser(USER_NAME).getRepository(REPOSITORY_NAME);
-        return repo.getDirectoryContent(JAVA_BASE_DIR);
+    public List<SnippetReference> getSnippetRefs() {
+        return snippetRefs;
     }
 
-    public String getSnippetRefs() {
+    private SnippetReference makeSnippetRef(String language, String path) {
+        String chapter = Arrays.stream(path.split("/")).filter(p -> p.startsWith("ch")).findFirst().get();
+        int chapterNumber = getChapterNumber(chapter);
+        SnippetReference result = new SnippetReference(language, chapterNumber, path);
+        return result;
+    }
+
+    public String getSnippetRefsAsString() {
         String result = "";
         for (SnippetReference ref : snippetRefs) {
             result += ref.toString() + "\n";
@@ -106,18 +105,16 @@ public class SnippetUrlDao {
     public String getUrls() {
       String result = "";
         for (String url : urls) {
-            result += url + "\n"; // castInputStream(c.read());
+            result += url + "\n";
       }
       return result;
     }
 
-    public String getTest() {
-        return " test";
-    }
-
-    public String getSnippet(int chapter, String name) throws IOException {
-        GHContent fileContents = GitHub.connectAnonymously().getUser(USER_NAME).getRepository(REPOSITORY_NAME).getFileContent("src/java/eu/sig/training/ch0" + chapter + "/" + name + ".java");
-        String result = castInputStream(fileContents.read());
+    public Snippet getSnippet(SnippetReference snippetRef) throws IOException {
+        GHRepository repo = connectToGHRepository();
+        GHContent fileContents = repo.getFileContent(snippetRef.getPath());
+        String code = castInputStream(fileContents.read());
+        Snippet result = new Snippet(snippetRef.getChapter(), snippetRef.getFileName(), code);
         return result;
     }
 
