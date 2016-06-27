@@ -27,4 +27,10 @@ public class SnippetReference {
     public String toString() {
         return language + " in chapter " + chapter + " at path: " + path;
     }
+
+    public String getFileName() {
+        String[] fileDir = path.split("/");
+        String fileName = fileDir[fileDir.length - 1];
+        return fileName;
+    }
 }
