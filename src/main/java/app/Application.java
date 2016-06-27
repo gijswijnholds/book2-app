@@ -28,7 +28,14 @@ public class Application {
         get("/hello", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             model.put("intro", "Hello Sylvan and Zeeger, did you like this snippet: ");
-            model.put("code", snippetUrlDao.getUrls()); // snippetDao.getAllSnippets().iterator().next().getCode());
+            String code;
+            if (snippetUrlDao.getUrls() == "") {
+                code = "EMOPTY";
+            }
+            else {
+                code = snippetUrlDao.getUrls();
+            }
+            model.put("code", code); //snippetUrlDao.getUrls()); // snippetDao.getAllSnippets().iterator().next().getCode());
 
             return new ModelAndView(model, "/velocity/hello/test.vm");
         }, new VelocityTemplateEngine());

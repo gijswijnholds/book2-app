@@ -12,6 +12,7 @@ import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GitHub;
 
 import com.google.common.base.Charsets;
+import com.google.common.collect.ImmutableList;
 import com.google.common.io.CharStreams;
 
 public class SnippetUrlDao {
@@ -23,12 +24,22 @@ public class SnippetUrlDao {
     public static final String JAVA_LANG = "Java";
     public static final String CSHARP_LANG = "C#";
 
-    private static List<SnippetReference> snippetRefs;
+    private static ImmutableList<SnippetReference> snippetRefs; // = ImmutableList.copyOf(buildSnippetRefs());
+    private static ImmutableList<String> urls;
 
     public List<GHContent> snippetUrls;
 
     public SnippetUrlDao() throws IOException {
-        snippetRefs = buildSnippetRefs();
+        urls = ImmutableList.copyOf(buildUrls());
+        // snippetRefs = ImmutableList.copyOf(buildSnippetRefs());
+    }
+
+    private List<String> buildUrls() throws IOException {
+        GHRepository repo = GitHub.connectUsingOAuth("3bd471601beb629a87d3f81f2445deb1cd59deb6")
+            .getUser(USER_NAME).getRepository(REPOSITORY_NAME);
+        List<String> paths = repo.getTreeRecursive("master", 1).getTree().stream()
+            .filter(e -> e.getType().equals("blob")).map(e -> e.getPath()).collect(Collectors.toList());
+        return paths;
     }
 
     private List<SnippetReference> buildSnippetRefs() throws IOException {
@@ -40,10 +51,43 @@ public class SnippetUrlDao {
 
     private List<SnippetReference> buildSnippetRefsForLanguage(String language, String baseDir) throws IOException {
         GHRepository repo = GitHub.connectAnonymously().getUser(USER_NAME).getRepository(REPOSITORY_NAME);
-        List<String> dirContents = repo.getDirectoryContent(baseDir).stream().map(d -> d.getName())
-            .collect(Collectors.toList());
 
-        return null;
+        List<GHContent> dirContents = repo.getDirectoryContent(baseDir);
+        List<SnippetReference> refs = new ArrayList<SnippetReference>();
+        
+        for (GHContent content : dirContents) {
+            String dirName = content.getName();
+            int chapterNumber = getChapterNumber(dirName);
+            List<SnippetReference> chapterSnippets = buildSnippetRefsForChapter(repo, language, chapterNumber,
+                baseDir + "/" + dirName);
+            refs.addAll(chapterSnippets);
+        }
+        return refs;
+    }
+
+
+    private List<SnippetReference> buildSnippetRefsForChapter(GHRepository repo, String language, int chapterNumber,
+        String baseDir) throws IOException {
+        List<GHContent> dirContents = repo.getDirectoryContent(baseDir);
+        List<SnippetReference> refs = new ArrayList<SnippetReference>();
+
+        for (GHContent content : dirContents) {
+            if (content.isFile()) {
+                refs.add(new SnippetReference(language, chapterNumber, baseDir + "/" + content.getName()));
+            }
+            if (content.isDirectory()) {
+                refs.addAll(
+                    buildSnippetRefsForChapter(repo, language, chapterNumber, baseDir + "/" + content.getName()));
+            }
+        }
+
+        return refs;
+    }
+
+    private int getChapterNumber(String ch) {
+        String string = ch.replaceAll("\\D+", "");
+        int result = Integer.parseInt(string);
+        return result;
     }
 
     public List<GHContent> initializeSnippetUrls() throws IOException {
@@ -51,12 +95,24 @@ public class SnippetUrlDao {
         return repo.getDirectoryContent(JAVA_BASE_DIR);
     }
 
+    public String getSnippetRefs() {
+        String result = "";
+        for (SnippetReference ref : snippetRefs) {
+            result += ref.toString() + "\n";
+        }
+        return result;
+    }
+
     public String getUrls() {
       String result = "";
-      for (GHContent c : snippetUrls) {
-            result += c.getType() + c.getPath() + "\n"; // castInputStream(c.read());
+        for (String url : urls) {
+            result += url + "\n"; // castInputStream(c.read());
       }
       return result;
+    }
+
+    public String getTest() {
+        return " test";
     }
 
     public String getSnippet(int chapter, String name) throws IOException {

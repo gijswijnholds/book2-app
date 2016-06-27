@@ -23,4 +23,8 @@ public class SnippetReference {
     public String getPath() {
         return path;
     }
+
+    public String toString() {
+        return language + " in chapter " + chapter + " at path: " + path;
+    }
 }
