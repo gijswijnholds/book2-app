@@ -3,10 +3,10 @@ package app;
 import static spark.Spark.get;
 import static spark.Spark.port;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.io.IOException;
-import app.snippet.SnippetDao;
+
 // import app.snippet.SnippetFetcher;
 import app.snippet.SnippetUrlDao;
 import spark.ModelAndView;
@@ -16,10 +16,9 @@ import spark.template.velocity.VelocityTemplateEngine;
 
 public class Application {
 
-    public static SnippetDao snippetDao;
 
     public static void main(String[] args) throws IOException {
-        SnippetDao snippetDao = new SnippetDao();
+
         // SnippetFetcher fetcher = new SnippetFetcher();
         SnippetUrlDao snippetUrlDao = new SnippetUrlDao();
 
@@ -41,6 +40,10 @@ public class Application {
             return Integer.parseInt(processBuilder.environment().get("PORT"));
         }
         return 4567; //return default port if heroku-port isn't set (i.e. on localhost)
+    }
+
+    public String easterEgg() {
+        return "hallo";
     }
 
 }
