@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import app.snippet.Snippet;
 // import app.snippet.SnippetFetcher;
 import app.snippet.SnippetUrlDao;
 import spark.ModelAndView;
@@ -28,13 +29,8 @@ public class Application {
         get("/hello", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             model.put("intro", "Hello Sylvan and Zeeger, did you like this snippet: ");
-            String code;
-            if (snippetUrlDao.getUrls() == "") {
-                code = "EMOPTY";
-            }
-            else {
-                code = snippetUrlDao.getUrls();
-            }
+            Snippet snippet = snippetUrlDao.getSnippet(snippetUrlDao.getSnippetRefs().get(0));
+            String code = snippet.getCode();
             model.put("code", code); //snippetUrlDao.getUrls()); // snippetDao.getAllSnippets().iterator().next().getCode());
 
             return new ModelAndView(model, "/velocity/hello/test.vm");
