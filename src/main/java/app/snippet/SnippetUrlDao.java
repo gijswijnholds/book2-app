@@ -36,6 +36,9 @@ public class SnippetUrlDao {
         snippetRefs = ImmutableList.copyOf(buildSnippetRefs());
     }
 
+    public String getToken() {
+        return token;
+    }
     private List<SnippetReference> buildSnippetRefs() throws IOException {
         List<String> urls = buildUrls();
 

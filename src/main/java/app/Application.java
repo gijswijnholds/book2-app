@@ -31,7 +31,7 @@ public class Application {
             model.put("intro", "Hello Sylvan and Zeeger, did you like this snippet: ");
             Snippet snippet = snippetUrlDao.getSnippet(snippetUrlDao.getSnippetRefs().get(0));
             String code = snippet.getCode();
-            model.put("code", code); //snippetUrlDao.getUrls()); // snippetDao.getAllSnippets().iterator().next().getCode());
+            model.put("code", snippetUrlDao.getToken()); //snippetUrlDao.getUrls()); // snippetDao.getAllSnippets().iterator().next().getCode());
 
             return new ModelAndView(model, "/velocity/hello/test.vm");
         }, new VelocityTemplateEngine());
