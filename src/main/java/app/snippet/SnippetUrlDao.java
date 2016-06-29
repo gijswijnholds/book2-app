@@ -32,8 +32,8 @@ public class SnippetUrlDao {
     public List<GHContent> snippetUrls;
 
     public SnippetUrlDao() throws IOException {
-        snippetRefs = ImmutableList.copyOf(buildSnippetRefs());
         token = System.getenv().get("OAUTH_TOKEN");
+        snippetRefs = ImmutableList.copyOf(buildSnippetRefs());
     }
 
     private List<SnippetReference> buildSnippetRefs() throws IOException {
