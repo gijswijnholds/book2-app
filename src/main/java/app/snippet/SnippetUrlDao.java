@@ -27,11 +27,13 @@ public class SnippetUrlDao {
 
     private static ImmutableList<SnippetReference> snippetRefs;
     private static ImmutableList<String> urls;
+    private static String token;
 
     public List<GHContent> snippetUrls;
 
     public SnippetUrlDao() throws IOException {
         snippetRefs = ImmutableList.copyOf(buildSnippetRefs());
+        token = System.getenv().get("OAUTH_TOKEN");
     }
 
     private List<SnippetReference> buildSnippetRefs() throws IOException {
@@ -73,7 +75,7 @@ public class SnippetUrlDao {
     }
 
     private GHRepository connectToGHRepository() throws IOException {
-        return GitHub.connectUsingOAuth("c215cf4f3b16c270764f86ce4da9954285004a17").getUser(USER_NAME)
+        return GitHub.connectUsingOAuth(token).getUser(USER_NAME)
             .getRepository(REPOSITORY_NAME);
     }
 
