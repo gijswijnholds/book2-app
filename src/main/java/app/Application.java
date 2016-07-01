@@ -18,18 +18,23 @@ import spark.template.velocity.VelocityTemplateEngine;
 public class Application {
 
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
         // SnippetFetcher fetcher = new SnippetFetcher();
-        SnippetUrlDao snippetUrlDao = new SnippetUrlDao();
-
         Spark.staticFileLocation("/public");
 
         port(getHerokuAssignedPort());
         get("/hello", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             model.put("intro", "Hello Sylvan and Zeeger, did you like this snippet: ");
-            Snippet snippet = snippetUrlDao.getSnippet(snippetUrlDao.getSnippetRefs().get(0));
+            Snippet snippet = new Snippet(1, "mocker",
+                "public mocker() {\n return \" You have been mocked! \"; }");
+            try {
+                SnippetUrlDao snippetUrlDao = new SnippetUrlDao();
+                snippet = snippetUrlDao.getSnippet(snippetUrlDao.getSnippetRefs().get(0));
+            } catch (IOException e) {
+                System.out.println("Unable to read from GitHub, will proceed with mock snippet...");
+            }
             String code = snippet.getCode();
             model.put("code", code); //snippetUrlDao.getUrls()); // snippetDao.getAllSnippets().iterator().next().getCode());
 
