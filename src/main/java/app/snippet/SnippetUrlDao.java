@@ -16,6 +16,8 @@ import com.google.common.base.Charsets;
 import com.google.common.collect.ImmutableList;
 import com.google.common.io.CharStreams;
 
+import app.util.FilterUtils;
+
 public class SnippetUrlDao {
 
     public static final String USER_NAME = "oreillymedia";
@@ -26,7 +28,6 @@ public class SnippetUrlDao {
     public static final String CSHARP_LANG = "C#";
 
     private static ImmutableList<SnippetReference> snippetRefs;
-    private static ImmutableList<String> urls;
     private static String token;
 
     public List<GHContent> snippetUrls;
@@ -42,8 +43,8 @@ public class SnippetUrlDao {
     private List<SnippetReference> buildSnippetRefs() throws IOException {
         List<String> urls = buildUrls();
 
-        List<String> javaUrls = filterByChapterExistence(filterByLang(urls, ".java"));
-        List<String> csharpUrls = filterByChapterExistence(filterByLang(urls, ".cs"));
+        List<String> javaUrls = FilterUtils.filterByChapterExistence(FilterUtils.filterByLang(urls, ".java"));
+        List<String> csharpUrls = FilterUtils.filterByChapterExistence(FilterUtils.filterByLang(urls, ".cs"));
 
         List<SnippetReference> javaRefs = javaUrls.stream().map(u -> makeSnippetRef(JAVA_LANG, u))
             .collect(Collectors.toList());
@@ -56,19 +57,7 @@ public class SnippetUrlDao {
         return allRefs;
     }
 
-    private List<String> filterByChapterExistence(List<String> list) {
-        return list.stream().filter(u -> containsChapterString(u)).collect(Collectors.toList());
-    }
 
-    private Boolean containsChapterString(String u) {
-        List<String> checkList = Arrays.stream(u.split("/")).filter(p -> p.startsWith("ch"))
-            .collect(Collectors.toList());
-        return !checkList.isEmpty();
-    }
-
-    private List<String> filterByLang(List<String> list, String langSuffix) {
-        return list.stream().filter(u -> u.endsWith(langSuffix)).collect(Collectors.toList());
-    }
 
     private List<String> buildUrls() throws IOException {
         GHRepository repo = connectToGHRepository();
@@ -97,22 +86,6 @@ public class SnippetUrlDao {
         int chapterNumber = getChapterNumber(chapter);
         SnippetReference result = new SnippetReference(language, chapterNumber, path);
         return result;
-    }
-
-    public String getSnippetRefsAsString() {
-        String result = "";
-        for (SnippetReference ref : snippetRefs) {
-            result += ref.toString() + "\n";
-        }
-        return result;
-    }
-
-    public String getUrls() {
-      String result = "";
-        for (String url : urls) {
-            result += url + "\n";
-      }
-      return result;
     }
 
     public Snippet getSnippet(SnippetReference snippetRef) throws IOException {
