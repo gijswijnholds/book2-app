@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.kohsuke.github.GHContent;
-import org.kohsuke.github.GHRepository;
 
 import com.google.common.collect.ImmutableList;
 
@@ -32,7 +31,7 @@ public class SnippetUrlDao {
     }
 
     private List<SnippetReference> buildSnippetRefs() throws IOException {
-        List<String> urls = buildUrls();
+        List<String> urls = connector.getFileUrls();
 
         List<String> javaUrls = FilterUtils.filterByChapterExistence(FilterUtils.filterByLang(urls, ".java"));
         List<String> csharpUrls = FilterUtils.filterByChapterExistence(FilterUtils.filterByLang(urls, ".cs"));
@@ -47,14 +46,6 @@ public class SnippetUrlDao {
         allRefs.addAll(csharpRefs);
         return allRefs;
     }
-
-    private List<String> buildUrls() throws IOException {
-        GHRepository repo = connector.connectToGHRepository();
-        List<String> paths = repo.getTreeRecursive("master", 1).getTree().stream()
-            .filter(e -> e.getType().equals("blob")).map(e -> e.getPath()).collect(Collectors.toList());
-        return paths;
-    }
-
 
     private int getChapterNumber(String ch) {
         String string = ch.replaceAll("\\D+", "");
@@ -78,6 +69,5 @@ public class SnippetUrlDao {
         Snippet result = new Snippet(snippetRef.getChapter(), snippetRef.getFileName(), code);
         return result;
     }
-
 
 }
