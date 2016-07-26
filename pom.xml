@@ -5,6 +5,7 @@
   <version>1.0</version>
   <name>book2-app</name>
   <properties>
+	<failOnMissingWebXml>false</failOnMissingWebXml>
   	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <dependencies>
@@ -28,6 +29,12 @@
       <artifactId>github-api</artifactId>
       <version>1.76</version>
     </dependency>
+    <dependency>
+		<groupId>junit</groupId>
+		<artifactId>junit</artifactId>
+		<version>4.12</version>
+		<scope>test</scope>
+	</dependency>	
   </dependencies>
   <build>
     <plugins>
@@ -39,6 +46,16 @@
                 <source>1.8</source>
                 <target>1.8</target>
             </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.18.1</version>
+          <configuration>
+          	<argLine>${argLine}</argLine>
+          	<skip>false</skip>
+          	<skipTests>false</skipTests>
+          </configuration>
         </plugin>
         <plugin>
             <artifactId>maven-assembly-plugin</artifactId>
@@ -88,29 +105,27 @@
     </configuration>
 	</plugin>
 	-->
-	<!--
 	<plugin>
-		<groupId>org.jacoco</groupId>
-		<artifactId>jacoco-maven-plugin</artifactId>
-		<version>0.7.7.201606060606</version>
-	</plugin>
+    <groupId>org.jacoco</groupId>
+    <artifactId>jacoco-maven-plugin</artifactId>
+    <version>0.7.7.201606060606</version>
+    <executions>
+        <execution>
+            <id>prepare-agent</id>
+            <goals>
+                <goal>prepare-agent</goal>
+            </goals>
+        </execution>
+    </executions>
+</plugin>
 	<plugin>
     <groupId>org.eluder.coveralls</groupId>
     <artifactId>coveralls-maven-plugin</artifactId>
     <version>4.2.0</version>
-    <executions>
-            <execution>
-            <id>post-unit-test</id>
-            <phase>test</phase>
-            <goals>
-                <goal>report</goal>
-            </goals>
-        </execution>
-    </executions>
     <configuration>
+    	<repoToken>QCTtZiKUQeVDIfHk52LLWXCudfIqZMNLn</repoToken>
     </configuration>
 </plugin>
--->
     </plugins>
 </build>
 </project>

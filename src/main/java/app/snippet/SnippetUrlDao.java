@@ -20,6 +20,9 @@ public class SnippetUrlDao {
     public static final String JAVA_LANG = "Java";
     public static final String CSHARP_LANG = "C#";
 
+    private static final Snippet mockSnippet = new Snippet(1, "mocker",
+        "public mocker() {\n return \" You have been mocked! \"; }");
+    
     private static ImmutableList<SnippetReference> snippetRefs;
 
     private GitHubConnector connector = new GitHubConnector();
@@ -64,10 +67,28 @@ public class SnippetUrlDao {
         return result;
     }
 
-    public Snippet getSnippet(SnippetReference snippetRef) throws IOException {
-        String code = connector.getFileContents(snippetRef.getPath());
-        Snippet result = new Snippet(snippetRef.getChapter(), snippetRef.getFileName(), code);
+    public Snippet getSnippet(SnippetReference snippetRef) {
+        Snippet result;
+        try {
+            String code = connector.getFileContents(snippetRef.getPath());
+            result = new Snippet(snippetRef.getChapter(), snippetRef.getFileName(), code);
+        }
+        catch (IOException e) {
+            result = mockSnippet;
+        }
         return result;
+    }
+
+    public List<SnippetReference> getSnippetRefsByChapter(List<SnippetReference> refs, int chapter) {
+        return refs.stream().filter(r -> r.getChapter() == chapter).collect(Collectors.toList());
+    }
+
+    public List<SnippetReference> getSnippetRefsByLang(List<SnippetReference> refs, String lang) {
+        return refs.stream().filter(r -> r.getLanguage().equals(lang)).collect(Collectors.toList());
+    }
+    
+    public Snippet getMockSnippet() {
+        return mockSnippet;
     }
 
 }
