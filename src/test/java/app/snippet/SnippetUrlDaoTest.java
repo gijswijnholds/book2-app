@@ -5,7 +5,6 @@ import static app.snippet.SnippetUrlDao.JAVA_LANG;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,27 +34,27 @@ public class SnippetUrlDaoTest {
     }
 
     @Test
-    public void getSnippetRefsByChapterNoOtherChaptersTest() throws IOException {
+    public void getSnippetRefsByChapterNoOtherChaptersTest() {
         List<SnippetReference> list = getTestData().get(0);
-        SnippetUrlDao testDao = new SnippetUrlDao();
+        SnippetUrlDao testDao = new SnippetUrlDao(true);
 
         List<SnippetReference> resultList = testDao.getSnippetRefsByChapter(list, 2);
         assertNotEquals(list, resultList);
     }
 
     @Test
-    public void getSnippetRefsByChapterNoSnippetsLostTest() throws IOException {
+    public void getSnippetRefsByChapterNoSnippetsLostTest() {
         List<SnippetReference> list = getTestData().get(1);
-        SnippetUrlDao testDao = new SnippetUrlDao();
+        SnippetUrlDao testDao = new SnippetUrlDao(true);
 
         List<SnippetReference> resultList = testDao.getSnippetRefsByChapter(list, 2);
         assertEquals(list, resultList);
     }
 
     @Test
-    public void getSnippetRefsByLangNoOtherLanguagesTest() throws IOException {
+    public void getSnippetRefsByLangNoOtherLanguagesTest() {
         List<SnippetReference> list = getTestData().get(2);
-        SnippetUrlDao testDao = new SnippetUrlDao();
+        SnippetUrlDao testDao = new SnippetUrlDao(true);
 
         List<SnippetReference> resultList = testDao.getSnippetRefsByLang(list, JAVA_LANG);
         assertNotEquals(list, resultList);
