@@ -123,7 +123,6 @@
     <artifactId>coveralls-maven-plugin</artifactId>
     <version>4.2.0</version>
     <configuration>
-    	<repoToken>QCTtZiKUQeVDIfHk52LLWXCudfIqZMNLn</repoToken>
     </configuration>
 </plugin>
     </plugins>
