@@ -3,47 +3,35 @@ package app;
 import static spark.Spark.get;
 import static spark.Spark.port;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.IOException;
 
+import app.controllers.HelloController;
 import app.controllers.IndexController;
-import app.snippet.Snippet;
+import app.controllers.SnippetController;
 import app.snippet.SnippetUrlDao;
-import spark.ModelAndView;
 import spark.Spark;
-import spark.template.velocity.VelocityTemplateEngine;
 
 
 public class Application {
 
+    public static SnippetUrlDao snippetUrlDao;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         // SnippetFetcher fetcher = new SnippetFetcher();
         Spark.staticFileLocation("/public");
-
         port(getHerokuAssignedPort());
+
+        snippetUrlDao = new SnippetUrlDao();
 
         get("/index", IndexController.serveHomePage);
 
-        // get("/snippets/:chapter", );
-        get("/hello", (req, res) -> {
-            Map<String, Object> model = new HashMap<>();
-            model.put("intro", "Hello Sylvan and Zeeger, did you like this snippet: ");
-            SnippetUrlDao snippetUrlDao = new SnippetUrlDao();
-            snippetUrlDao.initialize();
-            Snippet snippet = snippetUrlDao.getSnippet(snippetUrlDao.getSnippetRefs().get(0));
+        get("/hello", HelloController.serveHelloPage);
 
-            String code = snippet.getCode();
-            List<String> codes = new ArrayList<String>();
-            codes.add(code);
-            codes.add(code);
-            model.put("codes", codes); //snippetUrlDao.getUrls()); // snippetDao.getAllSnippets().iterator().next().getCode());
+        get("/snippets/:language", SnippetController.serveAllSnippetsPage);
 
-            return new ModelAndView(model, "/velocity/hello/test.vm");
-        }, new VelocityTemplateEngine());
+        get("/snippets/:language/:chapter/:name", SnippetController.serveOneSnippetPage);
+
         //    get("*", ViewUtil.notFound);
 
     }
