@@ -5,6 +5,7 @@
 <link href="/prism/prism.css" rel="stylesheet" />
 <link href="/bootstrap/bootstrap.min.css" rel="stylesheet" />
 <link href="/bootstrap/bootstrap-theme.min.css" rel="stylesheet" />
+<link href="/custom/style.css" rel="stylesheet" />
 </head>
 
 <body>
