@@ -11,7 +11,6 @@ import java.util.Map;
 import app.controllers.IndexController;
 import app.snippet.Snippet;
 import app.snippet.SnippetUrlDao;
-import app.util.ViewUtil;
 import spark.ModelAndView;
 import spark.Spark;
 import spark.template.velocity.VelocityTemplateEngine;
@@ -45,7 +44,7 @@ public class Application {
 
             return new ModelAndView(model, "/velocity/hello/test.vm");
         }, new VelocityTemplateEngine());
-        get("*", ViewUtil.notFound);
+        //    get("*", ViewUtil.notFound);
 
     }
 
