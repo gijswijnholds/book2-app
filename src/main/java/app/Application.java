@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import app.controllers.IndexController;
 import app.snippet.Snippet;
 import app.snippet.SnippetUrlDao;
 import app.util.ViewUtil;
@@ -26,7 +27,7 @@ public class Application {
 
         port(getHerokuAssignedPort());
 
-        //  get("/index", IndexController.serveHomePage);
+        get("/index", IndexController.serveHomePage);
 
         // get("/snippets/:chapter", );
         get("/hello", (req, res) -> {
