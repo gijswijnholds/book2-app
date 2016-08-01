@@ -10,6 +10,7 @@ import java.util.Map;
 
 import app.snippet.Snippet;
 import app.snippet.SnippetUrlDao;
+import app.util.ViewUtil;
 import spark.ModelAndView;
 import spark.Spark;
 import spark.template.velocity.VelocityTemplateEngine;
@@ -24,6 +25,9 @@ public class Application {
         Spark.staticFileLocation("/public");
 
         port(getHerokuAssignedPort());
+
+        //  get("/index", IndexController.serveHomePage);
+
         // get("/snippets/:chapter", );
         get("/hello", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
@@ -40,6 +44,8 @@ public class Application {
 
             return new ModelAndView(model, "/velocity/hello/test.vm");
         }, new VelocityTemplateEngine());
+        get("*", ViewUtil.notFound);
+
     }
 
     static int getHerokuAssignedPort() {
