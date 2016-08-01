@@ -29,6 +29,7 @@ public class Application {
             Map<String, Object> model = new HashMap<>();
             model.put("intro", "Hello Sylvan and Zeeger, did you like this snippet: ");
             SnippetUrlDao snippetUrlDao = new SnippetUrlDao();
+            snippetUrlDao.initialize();
             Snippet snippet = snippetUrlDao.getSnippet(snippetUrlDao.getSnippetRefs().get(0));
 
             String code = snippet.getCode();

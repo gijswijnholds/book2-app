@@ -29,11 +29,7 @@ public class SnippetUrlDao {
 
     public List<GHContent> snippetUrls;
 
-    public SnippetUrlDao() throws IOException {
-        initialize();
-    }
-
-    public SnippetUrlDao(boolean flag) {
+    public SnippetUrlDao() {
 
     }
 
