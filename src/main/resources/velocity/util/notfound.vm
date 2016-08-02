@@ -1,0 +1,12 @@
+#parse("/velocity/layout.vm")
+#@mainLayout()
+
+<div>
+<h2>
+The snippet you are seeking <br>
+Could not be found <br>
+Even after 404 tries <br>
+It did not show up
+</h2>
+</div>
+#end

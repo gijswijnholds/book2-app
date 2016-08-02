@@ -36,27 +36,27 @@ public class SnippetUrlDaoTest {
     @Test
     public void getSnippetRefsByChapterNoOtherChaptersTest() {
         List<SnippetReference> list = getTestData().get(0);
-        SnippetUrlDao testDao = new SnippetUrlDao(true);
+        //    SnippetUrlDao testDao = new SnippetUrlDao();
 
-        List<SnippetReference> resultList = testDao.getSnippetRefsByChapter(list, 2);
+        List<SnippetReference> resultList = SnippetUrlDao.getSnippetRefsByChapter(list, 2);
         assertNotEquals(list, resultList);
     }
 
     @Test
     public void getSnippetRefsByChapterNoSnippetsLostTest() {
         List<SnippetReference> list = getTestData().get(1);
-        SnippetUrlDao testDao = new SnippetUrlDao(true);
+        //    SnippetUrlDao testDao = new SnippetUrlDao();
 
-        List<SnippetReference> resultList = testDao.getSnippetRefsByChapter(list, 2);
+        List<SnippetReference> resultList = SnippetUrlDao.getSnippetRefsByChapter(list, 2);
         assertEquals(list, resultList);
     }
 
     @Test
     public void getSnippetRefsByLangNoOtherLanguagesTest() {
         List<SnippetReference> list = getTestData().get(2);
-        SnippetUrlDao testDao = new SnippetUrlDao(true);
+        //  SnippetUrlDao testDao = new SnippetUrlDao();
 
-        List<SnippetReference> resultList = testDao.getSnippetRefsByLang(list, JAVA_LANG);
+        List<SnippetReference> resultList = SnippetUrlDao.getSnippetRefsByLang(list, JAVA_LANG);
         assertNotEquals(list, resultList);
     }
 }

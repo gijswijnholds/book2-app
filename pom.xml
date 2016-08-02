@@ -5,7 +5,6 @@
   <version>1.0</version>
   <name>book2-app</name>
   <properties>
-	<failOnMissingWebXml>false</failOnMissingWebXml>
   	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <dependencies>

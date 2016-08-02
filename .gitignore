@@ -15,3 +15,5 @@
 target/
 build/
 bin/
+/bin/
+src/main/webapp/WEB-INF

@@ -17,8 +17,8 @@ public class SnippetUrlDao {
 
     public static final String JAVA_BASE_DIR = "src/java/eu/sig/training";
     public static final String CSHARP_BASE_DIR = "src/csharp/eu/sig/training";
-    public static final String JAVA_LANG = "Java";
-    public static final String CSHARP_LANG = "C#";
+    public static final String JAVA_LANG = "java";
+    public static final String CSHARP_LANG = "csharp";
 
     private static final Snippet mockSnippet = new Snippet(1, "mocker",
         "public mocker() {\n return \" You have been mocked! \"; }");
@@ -30,14 +30,6 @@ public class SnippetUrlDao {
     public List<GHContent> snippetUrls;
 
     public SnippetUrlDao() throws IOException {
-        initialize();
-    }
-
-    public SnippetUrlDao(boolean flag) {
-
-    }
-
-    public void initialize() throws IOException {
         snippetRefs = ImmutableList.copyOf(buildSnippetRefs());
     }
 
@@ -87,11 +79,19 @@ public class SnippetUrlDao {
         return result;
     }
 
-    public List<SnippetReference> getSnippetRefsByChapter(List<SnippetReference> refs, int chapter) {
+    public List<SnippetReference> getSnippetRefsByChapter(int chapter) {
+        return snippetRefs.stream().filter(r -> r.getChapter() == chapter).collect(Collectors.toList());
+    }
+
+    public static List<SnippetReference> getSnippetRefsByChapter(List<SnippetReference> refs, int chapter) {
         return refs.stream().filter(r -> r.getChapter() == chapter).collect(Collectors.toList());
     }
 
-    public List<SnippetReference> getSnippetRefsByLang(List<SnippetReference> refs, String lang) {
+    public List<SnippetReference> getSnippetRefsByLang(String lang) {
+        return snippetRefs.stream().filter(r -> r.getLanguage().equals(lang)).collect(Collectors.toList());
+    }
+
+    public static List<SnippetReference> getSnippetRefsByLang(List<SnippetReference> refs, String lang) {
         return refs.stream().filter(r -> r.getLanguage().equals(lang)).collect(Collectors.toList());
     }
     

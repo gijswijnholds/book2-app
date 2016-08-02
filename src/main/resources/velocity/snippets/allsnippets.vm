@@ -1,0 +1,21 @@
+#parse("/velocity/layout.vm")
+#@mainLayout()
+
+
+All ${language} snippets:
+
+<div class="row">
+
+#foreach( $chapter in $snippets.keySet() )
+<div class="col-md-3">
+	<h1> Snippets in chapter ${chapter} :</h1><br>
+ 	#foreach( $snippet in $snippets.get($chapter) )
+ 		${snippet} <br>
+ 	#end
+</div>
+#end
+
+</div>
+
+
+#end
