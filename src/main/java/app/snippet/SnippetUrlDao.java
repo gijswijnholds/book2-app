@@ -1,5 +1,8 @@
 package app.snippet;
 
+import static app.util.GitHubConstants.CSHARP_LANG;
+import static app.util.GitHubConstants.JAVA_LANG;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,11 +17,6 @@ import app.util.FilterUtils;
 import app.util.GitHubConnector;
 
 public class SnippetUrlDao {
-
-    public static final String JAVA_BASE_DIR = "src/java/eu/sig/training";
-    public static final String CSHARP_BASE_DIR = "src/csharp/eu/sig/training";
-    public static final String JAVA_LANG = "java";
-    public static final String CSHARP_LANG = "csharp";
 
     private static final Snippet mockSnippet = new Snippet(1, "mocker",
         "public mocker() {\n return \" You have been mocked! \"; }");

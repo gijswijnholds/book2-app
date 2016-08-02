@@ -22,6 +22,9 @@ public class SnippetController {
         String language = request.params(":language");
         int chapter = Integer.parseInt(request.params(":chapter"));
         String name = request.params(":name");
+        model.put("language", language);
+        model.put("chapter", chapter);
+        model.put("name", name);
         //    SnippetReference ref = new SnippetReference();
         //  snippetUrlDao.getSnippet(snippetRef);
         return ViewUtil.render(model, Path.Template.ONE_SNIPPET);
@@ -33,13 +36,21 @@ public class SnippetController {
         String language = request.params(":language");
         List<SnippetReference> snippetRefs = snippetUrlDao.getSnippetRefsByLang(language);
 
-        Map<Integer, List<String>> snippetNamesGrouped = snippetRefs.stream()
+        Map<Integer, List<Map<String, String>>> snippetNamesGrouped = snippetRefs.stream()
             .collect(Collectors.groupingBy(SnippetReference::getChapter,
-                Collectors.mapping(SnippetReference::getFileName, Collectors.toList())));
+                Collectors.mapping(SnippetController::getNameAndPath, Collectors.toList())));
 
         model.put("language", language);
         model.put("snippets", snippetNamesGrouped);
 
         return ViewUtil.render(model, Path.Template.ALL_SNIPPETS);
     };
+
+    private static Map<String, String> getNameAndPath(SnippetReference ref) {
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("name", ref.getFileName());
+        map.put("path", ref.getPath());
+        return map;
+    }
+
 }
