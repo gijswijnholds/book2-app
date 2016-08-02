@@ -1,7 +1,7 @@
 package app.snippet;
 
-import static app.snippet.SnippetUrlDao.CSHARP_LANG;
-import static app.snippet.SnippetUrlDao.JAVA_LANG;
+import static app.util.GitHubConstants.CSHARP_LANG;
+import static app.util.GitHubConstants.JAVA_LANG;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+
 
 public class SnippetUrlDaoTest {
 
