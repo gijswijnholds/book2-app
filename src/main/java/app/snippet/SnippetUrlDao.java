@@ -83,7 +83,7 @@ public class SnippetUrlDao {
         return snippetRefs.stream().filter(r -> r.getChapter() == chapter).collect(Collectors.toList());
     }
 
-    public List<SnippetReference> getSnippetRefsByChapter(List<SnippetReference> refs, int chapter) {
+    public static List<SnippetReference> getSnippetRefsByChapter(List<SnippetReference> refs, int chapter) {
         return refs.stream().filter(r -> r.getChapter() == chapter).collect(Collectors.toList());
     }
 
@@ -91,7 +91,7 @@ public class SnippetUrlDao {
         return snippetRefs.stream().filter(r -> r.getLanguage().equals(lang)).collect(Collectors.toList());
     }
 
-    public List<SnippetReference> getSnippetRefsByLang(List<SnippetReference> refs, String lang) {
+    public static List<SnippetReference> getSnippetRefsByLang(List<SnippetReference> refs, String lang) {
         return refs.stream().filter(r -> r.getLanguage().equals(lang)).collect(Collectors.toList());
     }
     

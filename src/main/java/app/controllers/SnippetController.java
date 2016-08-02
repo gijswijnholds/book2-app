@@ -19,7 +19,11 @@ public class SnippetController {
     public static Route serveOneSnippetPage = (Request request, Response response) -> {
 
         Map<String, Object> model = new HashMap<>();
-
+        String language = request.params(":language");
+        int chapter = Integer.parseInt(request.params(":chapter"));
+        String name = request.params(":name");
+        //    SnippetReference ref = new SnippetReference();
+        //  snippetUrlDao.getSnippet(snippetRef);
         return ViewUtil.render(model, Path.Template.ONE_SNIPPET);
     };
 

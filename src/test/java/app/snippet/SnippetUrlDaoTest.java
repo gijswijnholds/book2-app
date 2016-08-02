@@ -1,6 +1,5 @@
 package app.snippet;
 
-import static app.Application.snippetUrlDao;
 import static app.snippet.SnippetUrlDao.CSHARP_LANG;
 import static app.snippet.SnippetUrlDao.JAVA_LANG;
 import static org.junit.Assert.assertEquals;
@@ -39,7 +38,7 @@ public class SnippetUrlDaoTest {
         List<SnippetReference> list = getTestData().get(0);
         //    SnippetUrlDao testDao = new SnippetUrlDao();
 
-        List<SnippetReference> resultList = snippetUrlDao.getSnippetRefsByChapter(list, 2);
+        List<SnippetReference> resultList = SnippetUrlDao.getSnippetRefsByChapter(list, 2);
         assertNotEquals(list, resultList);
     }
 
@@ -48,7 +47,7 @@ public class SnippetUrlDaoTest {
         List<SnippetReference> list = getTestData().get(1);
         //    SnippetUrlDao testDao = new SnippetUrlDao();
 
-        List<SnippetReference> resultList = snippetUrlDao.getSnippetRefsByChapter(list, 2);
+        List<SnippetReference> resultList = SnippetUrlDao.getSnippetRefsByChapter(list, 2);
         assertEquals(list, resultList);
     }
 
@@ -57,7 +56,7 @@ public class SnippetUrlDaoTest {
         List<SnippetReference> list = getTestData().get(2);
         //  SnippetUrlDao testDao = new SnippetUrlDao();
 
-        List<SnippetReference> resultList = snippetUrlDao.getSnippetRefsByLang(list, JAVA_LANG);
+        List<SnippetReference> resultList = SnippetUrlDao.getSnippetRefsByLang(list, JAVA_LANG);
         assertNotEquals(list, resultList);
     }
 }
