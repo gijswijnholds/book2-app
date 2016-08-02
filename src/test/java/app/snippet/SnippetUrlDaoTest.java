@@ -1,6 +1,8 @@
 package app.snippet;
 
+import static app.util.GitHubConstants.CSHARP_BASE_DIR;
 import static app.util.GitHubConstants.CSHARP_LANG;
+import static app.util.GitHubConstants.JAVA_BASE_DIR;
 import static app.util.GitHubConstants.JAVA_LANG;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -14,10 +16,10 @@ import org.junit.Test;
 public class SnippetUrlDaoTest {
 
     private List<List<SnippetReference>> getTestData() {
-        SnippetReference ref1 = new SnippetReference("java", 2, "chapter1/snippet1.java");
-        SnippetReference ref2 = new SnippetReference("java", 3, "chapter3/snippet2.java");
-        SnippetReference ref3 = new SnippetReference("java", 2, "chapter2/snippet3.java");
-        SnippetReference ref4 = new SnippetReference(CSHARP_LANG, 2, "chapter2/snippet3.cs");
+        SnippetReference ref1 = new SnippetReference(JAVA_LANG, 2, JAVA_BASE_DIR + "/ch01/snippet1.java");
+        SnippetReference ref2 = new SnippetReference(JAVA_LANG, 3, JAVA_BASE_DIR + "/ch03/snippet2.java");
+        SnippetReference ref3 = new SnippetReference(JAVA_LANG, 2, JAVA_BASE_DIR + "/ch02/snippet3.java");
+        SnippetReference ref4 = new SnippetReference(CSHARP_LANG, 2, CSHARP_BASE_DIR + "/ch02/snippet3.cs");
         List<SnippetReference> list1 = new ArrayList<SnippetReference>();
         List<SnippetReference> list2 = new ArrayList<SnippetReference>();
         List<SnippetReference> list3 = new ArrayList<SnippetReference>();
