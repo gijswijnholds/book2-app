@@ -1,5 +1,5 @@
-component_depth: 2
+component_depth: 1
 languages:
 - java
 exclude:
-- .*/resources.*
+- .*/resources/.*
