@@ -10,7 +10,7 @@ All ${language} snippets:
 <div class="col-md-3">
 	<h1> Snippets in chapter ${chapter} :</h1><br>
  	#foreach( $snippet in $snippets.get($chapter) )
- 		${snippet.name} + ${snippet.path} <br>
+ 		<a href=${snippet.url}>${snippet.name}</a><br>
  	#end
 </div>
 #end

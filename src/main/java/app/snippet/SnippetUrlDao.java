@@ -1,6 +1,7 @@
 package app.snippet;
 
 import static app.util.GitHubConstants.CSHARP_LANG;
+import static app.util.GitHubConstants.JAVA_BASE_DIR;
 import static app.util.GitHubConstants.JAVA_LANG;
 
 import java.io.IOException;
@@ -27,8 +28,14 @@ public class SnippetUrlDao {
 
     public List<GHContent> snippetUrls;
 
-    public SnippetUrlDao() throws IOException {
-        snippetRefs = ImmutableList.copyOf(buildSnippetRefs());
+    public SnippetUrlDao(boolean connect) throws IOException {
+        if (connect) {
+            snippetRefs = ImmutableList.copyOf(buildSnippetRefs());
+        } else {
+            List<SnippetReference> mockList = new ArrayList<SnippetReference>();
+            mockList.add(new SnippetReference(JAVA_LANG, 1, JAVA_BASE_DIR + "/ch01/mockSnippet.java"));
+            snippetRefs = ImmutableList.copyOf(mockList);
+        }
     }
 
     private List<SnippetReference> buildSnippetRefs() throws IOException {
@@ -75,22 +82,6 @@ public class SnippetUrlDao {
             result = mockSnippet;
         }
         return result;
-    }
-
-    public List<SnippetReference> getSnippetRefsByChapter(int chapter) {
-        return snippetRefs.stream().filter(r -> r.getChapter() == chapter).collect(Collectors.toList());
-    }
-
-    public static List<SnippetReference> getSnippetRefsByChapter(List<SnippetReference> refs, int chapter) {
-        return refs.stream().filter(r -> r.getChapter() == chapter).collect(Collectors.toList());
-    }
-
-    public List<SnippetReference> getSnippetRefsByLang(String lang) {
-        return snippetRefs.stream().filter(r -> r.getLanguage().equals(lang)).collect(Collectors.toList());
-    }
-
-    public static List<SnippetReference> getSnippetRefsByLang(List<SnippetReference> refs, String lang) {
-        return refs.stream().filter(r -> r.getLanguage().equals(lang)).collect(Collectors.toList());
     }
     
     public Snippet getMockSnippet() {

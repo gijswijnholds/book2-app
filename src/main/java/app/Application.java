@@ -22,7 +22,7 @@ public class Application {
         Spark.staticFileLocation("/public");
         port(getHerokuAssignedPort());
 
-        snippetUrlDao = new SnippetUrlDao();
+        snippetUrlDao = new SnippetUrlDao(false);
 
         get("/index", IndexController.serveHomePage);
 
