@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import app.util.SnippetReferenceUtils;
 
 public class SnippetUrlDaoTest {
 
@@ -41,7 +42,7 @@ public class SnippetUrlDaoTest {
         List<SnippetReference> list = getTestData().get(0);
         //    SnippetUrlDao testDao = new SnippetUrlDao();
 
-        List<SnippetReference> resultList = SnippetUrlDao.getSnippetRefsByChapter(list, 2);
+        List<SnippetReference> resultList = SnippetReferenceUtils.getSnippetRefsByChapter(list, 2);
         assertNotEquals(list, resultList);
     }
 
@@ -50,7 +51,7 @@ public class SnippetUrlDaoTest {
         List<SnippetReference> list = getTestData().get(1);
         //    SnippetUrlDao testDao = new SnippetUrlDao();
 
-        List<SnippetReference> resultList = SnippetUrlDao.getSnippetRefsByChapter(list, 2);
+        List<SnippetReference> resultList = SnippetReferenceUtils.getSnippetRefsByChapter(list, 2);
         assertEquals(list, resultList);
     }
 
@@ -59,7 +60,7 @@ public class SnippetUrlDaoTest {
         List<SnippetReference> list = getTestData().get(2);
         //  SnippetUrlDao testDao = new SnippetUrlDao();
 
-        List<SnippetReference> resultList = SnippetUrlDao.getSnippetRefsByLang(list, JAVA_LANG);
+        List<SnippetReference> resultList = SnippetReferenceUtils.getSnippetRefsByLang(list, JAVA_LANG);
         assertNotEquals(list, resultList);
     }
 }
