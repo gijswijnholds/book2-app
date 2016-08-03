@@ -3,6 +3,7 @@ package app.controllers;
 import static app.Application.snippetUrlDao;
 import static app.util.GitHubConstants.CSHARP_LANG;
 import static app.util.GitHubConstants.JAVA_LANG;
+import static app.util.SnippetReferenceUtils.getSnippetRefsByLang;
 
 import java.util.HashMap;
 import java.util.List;
@@ -49,11 +50,12 @@ public class SnippetController {
             return ViewUtil.notFound;
         }
 
-        List<SnippetReference> snippetRefs = snippetUrlDao.getSnippetRefsByLang(language);
+        List<SnippetReference> snippetRefs = getSnippetRefsByLang(snippetUrlDao.getSnippetRefs(),
+            language);
 
         Map<Integer, List<Map<String, String>>> snippetNamesGrouped = snippetRefs.stream()
             .collect(Collectors.groupingBy(SnippetReference::getChapter,
-                Collectors.mapping(SnippetController::getNameAndPath, Collectors.toList())));
+                Collectors.mapping(SnippetController::getNameAndUrl, Collectors.toList())));
 
         model.put("language", language);
         model.put("snippets", snippetNamesGrouped);
@@ -61,10 +63,9 @@ public class SnippetController {
         return ViewUtil.render(model, Path.Template.ALL_SNIPPETS);
     };
 
-    private static Map<String, String> getNameAndPath(SnippetReference ref) {
+    private static Map<String, String> getNameAndUrl(SnippetReference ref) {
         Map<String, String> map = new HashMap<String, String>();
         map.put("name", ref.getFileName());
-        map.put("path", ref.getPath());
         String url = ref.getLanguage() + "/" + ref.getChapter() + "/" + ref.getRefName();
         map.put("url", url);
         return map;
