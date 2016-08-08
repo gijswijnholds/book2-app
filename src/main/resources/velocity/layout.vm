@@ -6,6 +6,8 @@
 <link href="/bootstrap/bootstrap.min.css" rel="stylesheet" />
 <link href="/bootstrap/bootstrap-theme.min.css" rel="stylesheet" />
 <link href="/custom/style.css" rel="stylesheet" />
+<link rel="stylesheet" href="/templated-epilogue/assets/css/main.css" />
+
 </head>
 
 <body>
@@ -13,6 +15,10 @@
 ## javascript
 <script src="/bootstrap/bootstrap.min.js"></script>
 <script src="/prism/prism.js"></script>
+<script src="/templated-epilogue/assets/js/jquery.min.js"></script>
+<script src="/templated-epilogue/assets/js/skel.min.js"></script>
+<script src="/templated-epilogue/assets/js/util.js"></script>
+<script src="/templated-epilogue/assets/js/main.js"></script>
 
 <main>
 

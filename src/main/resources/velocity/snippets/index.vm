@@ -1,28 +1,64 @@
 #parse("/velocity/layout.vm")
 #@mainLayout()
 
+<!--
+	Epilogue by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+	Edited by Gijs Wijnholds 2016
+-->
 
-<div class="container">
-	<div class="row row-centered">
-		<div class="col-md-12">
-		<h1>Pick your language:</h1>
-		</div>
-	</div>
-	<div class="row row-centered">
-		<div class="col-md-3 col-centered">
-			<div class="circle">
-				Java
+
+		
+		<!-- Header -->
+			<header id="header" class="alt">
+				<div class="inner">
+					<h1>Building Maintainable Software</h1>
+					<p>Snippet repository</p>
+				</div>
+			</header>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- CTA -->
+					<section id="cta" class="main special">
+<!-- 				<span class="icon fa-github major"></span> -->
+						
+						<p>Here you can find all the example code that we've used for the book "Building Maintainable Software: 10 guidelines for future-proof code"</p>
+						<p>This site directly accesses the <a href="https://github.com/oreillymedia/building_maintainable_software">repository</a> on GitHub</p>
+						<p>To browse the snippets, pick one of the languages below.</p>						
+					</section>
+					
+				<!-- Items -->
+					<section class="main items">
+						<article class="item">
+							<header>
+								<a href="/snippets/java"><img src="images/pic01.jpg" alt="" /></a>
+								<h3>Fancy Java...</h3>
+							</header>
+						</article>
+						<article class="item">
+							<header>
+								<a href="/snippets/csharp"><img src="images/pic02.jpg" alt="" /></a>
+								<h3>...or prefer C#?</h3>
+							</header>
+						</article>						
+					</section>
+
+
+
+				<!-- Footer -->
+					<footer id="footer">
+						<ul class="icons">
+							<li><a href="https://twitter.com/sig_eu" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="https://www.facebook.com/SoftwareImprovementGroupSIG/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>							
+							<li><a href="https://nl.linkedin.com/company/software-improvement-group" class="icon fa-linkedin"><span class="label">LinkedIn</span></a></li>
+							<li><a href="mailto:booksupport@sig.eu" class="icon fa-envelope"><span class="label">Email</span></a></li>
+						</ul>
+						<p class="copyright">Original design by <a href="https://templated.co">TEMPLATED</a>.</p>
+					</footer>
+
 			</div>
-		</div>
-		<div class="col-md-6 col-centered">
-			<img src="/images/or.svg" width="200px" height="200px">
-		</div>
-		<div class="col-md-3 col-centered">
-			<div class="circle">
-				C#
-			</div>
-		 </div>
-	</div>
-</div>
 
 #end
