@@ -19,11 +19,10 @@ import app.util.PathUtils;
 import app.util.ViewUtil;
 import spark.Request;
 import spark.Response;
-import spark.Route;
 
 public class SnippetController {
 
-    public static Route serveOneSnippetPage = (Request request, Response response) -> {
+    public static String serveOneSnippetPage(Request request, Response response) {
 
         Map<String, Object> model = new HashMap<>();
         String language = request.params(":language");
@@ -40,14 +39,14 @@ public class SnippetController {
         //    SnippetReference ref = new SnippetReference();
         //  snippetUrlDao.getSnippet(snippetRef);
         return ViewUtil.render(model, Path.Template.ONE_SNIPPET);
-    };
+    }
 
-    public static Route serveAllSnippetsPage = (Request request, Response response) -> {
+    public static String serveAllSnippetsPage(Request request, Response response) {
 
         Map<String, Object> model = new HashMap<>();
         String language = request.params(":language");
         if (!(language.equals(JAVA_LANG) || language.equals(CSHARP_LANG))) {
-            return ViewUtil.notFound;
+            return ViewUtil.notFound(response);
         }
 
         List<SnippetReference> snippetRefs = getSnippetRefsByLang(snippetUrlDao.getSnippetRefs(),
@@ -61,7 +60,7 @@ public class SnippetController {
         model.put("snippets", snippetNamesGrouped);
 
         return ViewUtil.render(model, Path.Template.ALL_SNIPPETS);
-    };
+    }
 
     private static Map<String, String> getNameAndUrl(SnippetReference ref) {
         Map<String, String> map = new HashMap<String, String>();

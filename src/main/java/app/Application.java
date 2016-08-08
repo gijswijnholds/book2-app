@@ -22,15 +22,24 @@ public class Application {
         Spark.staticFileLocation("/public");
         port(getHerokuAssignedPort());
 
-        snippetUrlDao = new SnippetUrlDao(false);
+        snippetUrlDao = new SnippetUrlDao(true);
 
-        get("/index", IndexController.serveHomePage);
 
-        get("/hello", HelloController.serveHelloPage);
+        get("/index", (request, response) -> {
+            return IndexController.serveHomePage();
+        });
 
-        get("/snippets/:language", SnippetController.serveAllSnippetsPage);
+        get("/hello", (request, response) -> {
+            return HelloController.serveHelloPage();
+        });
 
-        get("/snippets/:language/:chapter/:name", SnippetController.serveOneSnippetPage);
+        get("/snippets/:language", (request, response) -> {
+            return SnippetController.serveAllSnippetsPage(request, response);
+        });
+
+        get("/snippets/:language/:chapter/:name", (request, response) -> {
+            return SnippetController.serveOneSnippetPage(request, response);
+        });
 
         //    get("*", ViewUtil.notFound);
 

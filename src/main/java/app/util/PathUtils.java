@@ -1,5 +1,6 @@
 package app.util;
 
+import static app.util.GitHubConstants.CSHARP_BASE_DIR;
 import static app.util.GitHubConstants.CSHARP_LANG;
 import static app.util.GitHubConstants.JAVA_BASE_DIR;
 import static app.util.GitHubConstants.JAVA_LANG;
@@ -24,7 +25,7 @@ public class PathUtils {
             baseDir = JAVA_BASE_DIR;
         }
         if (language.equals(CSHARP_LANG)) {
-            baseDir = CSHARP_LANG;
+            baseDir = CSHARP_BASE_DIR;
         }
         String chapterPath = "ch";
         if (chapter < 10) {
