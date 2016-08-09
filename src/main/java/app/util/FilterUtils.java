@@ -11,7 +11,7 @@ public final class FilterUtils {
     }
 
     private static Boolean containsChapterString(String u) {
-        List<String> checkList = Arrays.stream(u.split("/")).filter(p -> p.startsWith("ch"))
+        List<String> checkList = Arrays.stream(u.split("/")).filter(p -> p.startsWith("ch") && p.length() < 5)
             .collect(Collectors.toList());
         return !checkList.isEmpty();
     }

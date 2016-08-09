@@ -1,11 +1,12 @@
 package app.util;
 
+import static app.util.GitHubConstants.CSHARP_BASE_DIR;
+import static app.util.GitHubConstants.CSHARP_LANG;
 import static app.util.GitHubConstants.JAVA_BASE_DIR;
 import static app.util.GitHubConstants.JAVA_LANG;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-
 public class PathUtilsTest {
 
     @Test
@@ -19,7 +20,10 @@ public class PathUtilsTest {
     public void testCreatePathFromName() throws Exception {
         String input = "v1-javaMethod.java";
         String result = PathUtils.createPathFromName(input, 2, JAVA_LANG);
+        String input2 = "v2-test-csharpFunction.cs";
+        String result2 = PathUtils.createPathFromName(input2, 11, CSHARP_LANG);
         assertEquals(JAVA_BASE_DIR + "/ch02/v1/javaMethod.java", result);
+        assertEquals(CSHARP_BASE_DIR + "/ch11/v2/test/csharpFunction.cs", result2);
     }
 
     @Test
