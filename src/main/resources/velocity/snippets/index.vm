@@ -34,13 +34,13 @@
 					<section class="main items">
 						<article class="item">
 							<header>
-								<a href="/snippets/java"><img src="images/pic01.jpg" alt="" /></a>
+								<a href="/snippets/java"><img src="/images/java.png" alt=""></a>
 								<h3>Fancy Java...</h3>
 							</header>
 						</article>
 						<article class="item">
 							<header>
-								<a href="/snippets/csharp"><img src="images/pic02.jpg" alt="" /></a>
+								<a href="/snippets/csharp"><img src="/images/csharp.png" alt=""></a>
 								<h3>...or prefer C#?</h3>
 							</header>
 						</article>						
