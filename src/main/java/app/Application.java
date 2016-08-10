@@ -25,7 +25,7 @@ public class Application {
         snippetUrlDao = new SnippetUrlDao(true);
 
 
-        get("/index", (request, response) -> {
+        get("/", (request, response) -> {
             return IndexController.serveHomePage();
         });
 
